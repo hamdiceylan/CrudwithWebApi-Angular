@@ -14,14 +14,11 @@ namespace AddressApp.Controllers
     {
         AddressAppEntities db = new AddressAppEntities();
 
-        //get all customer
         [HttpGet]
         public IEnumerable<Users> Get()
         {
             return db.Users.AsEnumerable();
         }
-
-        //get customer by id
         public Users Get(int id)
         {
             Users users = db.Users.Find(id);
@@ -31,7 +28,6 @@ namespace AddressApp.Controllers
             }
             return users;
         }
-        //insert customer
         public HttpResponseMessage Post(Users user)
         {
             if (ModelState.IsValid)
@@ -47,7 +43,6 @@ namespace AddressApp.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
         }
-        //update customer
         public HttpResponseMessage Put(int id, Users user)
         {
             if (!ModelState.IsValid)
@@ -69,7 +64,6 @@ namespace AddressApp.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK);
         }
-        //delete customer by id
         public HttpResponseMessage Delete(int id)
         {
             Users user = db.Users.Find(id);
@@ -88,7 +82,6 @@ namespace AddressApp.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, user);
         }
-        //prevent memory leak
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
