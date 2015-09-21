@@ -1,0 +1,95 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div data-ng-controller="userController" class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <strong class="error">{{ error }}</strong>
+            <p data-ng-hide="addMode"><a data-ng-click="toggleAdd()" href="javascript:;" class="btn btn-primary">Add New</a></p>
+            <form name="addUser" data-ng-show="addMode" style="width:600px;margin:0px auto;">
+                <div class="form-group">
+                    <label for="cname" class="col-sm-2 control-label">Firstname:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="please enter your firstname" data-ng-model="newuser.Firstname" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="address" class="col-sm-2 control-label">Lastname:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="please enter your lastname" data-ng-model="newuser.Lastname" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="city" class="col-sm-2 control-label">Username:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="please enter your username" data-ng-model="newuser.Username" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="country" class="col-sm-2 control-label">Password:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="please enter your password" data-ng-model="newuser.Password" required />
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input type="submit" value="Add" data-ng-click="add()" data-ng-disabled="!addUser.$valid" class="btn btn-primary" />
+                        <input type="button" value="Cancel" data-ng-click="toggleAdd()" class="btn btn-primary" />
+                    </div>
+                </div>
+                <br />
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <br />
+            <br />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" style="width:800px">
+                    <tr>
+                        <th>#</th>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Username</th>
+                        <th>Password</th>
+                        <th colspan="2">Manage</th>
+                    </tr>
+                    <tr data-ng-repeat="user in users">
+                        <td><strong data-ng-hide="user.editMode">{{ user.Id }}</strong></td>
+                        <td>
+                            <p data-ng-hide="user.editMode">{{ user.Firstname }}</p>
+                            <input data-ng-show="user.editMode" type="text" data-ng-model="user.Firstname" />
+                        </td>
+                        <td>
+                            <p data-ng-hide="user.editMode">{{ user.Lastname }}</p>
+                            <input data-ng-show="user.editMode" type="text" data-ng-model="user.Lastname" />
+                        </td>
+                        <td>
+                            <p data-ng-hide="user.editMode">{{ user.Username }}</p>
+                            <input data-ng-show="user.editMode" type="text" data-ng-model="user.Username" />
+                        </td>
+                        <td>
+                            <p data-ng-hide="user.editMode">{{ user.Password }}</p>
+                            <input data-ng-show="user.editMode" type="text" data-ng-model="user.Password" />
+                        </td>
+                        <td>
+                            <p data-ng-hide="user.editMode"><a data-ng-click="toggleEdit(user)" href="javascript:;">Edit</a> | <a data-ng-click="deleteuser(user)" href="javascript:;">Delete</a></p>
+                            <p data-ng-show="user.editMode"><a data-ng-click="save(user)" href="javascript:;">Save</a> | <a data-ng-click="toggleEdit(user)" href="javascript:;">Cancel</a></p>
+                        </td>
+                    </tr>
+                </table>
+                <hr />
+            </div>
+        </div>
+    </div>
+    <div id="mydiv" data-ng-show="loading">
+        <img src="../Images/ajax-loader.gif" class="ajax-loader" />
+    </div>
+</div>
